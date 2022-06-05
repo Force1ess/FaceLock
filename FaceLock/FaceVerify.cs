@@ -25,7 +25,7 @@ namespace SystemTrayApp.WPF
         public static string photo_path = user_direc + "/.cache/photo.jpeg";
         public static bool running = false;
         public static int time_span = 10000;
-        public static string true_pass = "712811";
+        public static string true_pass = "123456";
         public static string pass_path = user_direc + "/.cache/userpass.txt";
         [DllImport("user32")]
         public static extern void LockWorkStation();
