@@ -29,6 +29,7 @@ namespace SystemTrayApp.WPF
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
+            Activate();
             var pass = (string)PromptDialog.Dialog.Prompt("Password", "Input your origin password", inputType: PromptDialog.Dialog.InputType.Password);
             if (pass.Equals(FaceVerify.true_pass))
             {
@@ -38,6 +39,7 @@ namespace SystemTrayApp.WPF
                 {
                     Console.WriteLine(i);
                 }
+                FaceVerify.true_pass = pass;
             }
             else
             {
@@ -54,6 +56,7 @@ namespace SystemTrayApp.WPF
                 Console.WriteLine(openFileDlg.FileName);
                 await powerShell.AddScript($"cp \"{openFileDlg.FileName}\"  -Destination {FaceVerify.lock_path} ").InvokeAsync();
                 Console.WriteLine("Photo Reset!");
+                this.Activate();
             }
 
         }

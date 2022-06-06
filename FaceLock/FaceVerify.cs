@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Forms;
 using System.Text;
 using System.IO;
 using System.Threading.Tasks;
@@ -10,6 +11,7 @@ using System.Windows;
 using Windows.Media.Capture;
 using Windows.Storage;
 using Windows.Storage.Streams;
+using System.Threading;
 using Windows.Media.MediaProperties;
 using System.Runtime.InteropServices;
 
@@ -34,7 +36,7 @@ namespace SystemTrayApp.WPF
             init();
         }
         public async static void lock_computer(){
-            await Task.Delay(6000);
+            await Task.Delay(10000);
             if(!running)
             LockWorkStation();
             Console.WriteLine(running);
@@ -104,11 +106,11 @@ namespace SystemTrayApp.WPF
                 {
                     running = false;
                     var task = Task.Run(lock_computer);
-                    MessageBox.Show("Face verify failed, please input password or computer will lock in 5 seconds!");
+                    System.Windows.Forms.MessageBox.Show(new Form { TopMost = true }, "Face verify failed, please input password or computer will lock in 5 seconds!");
                     string password = (string)PromptDialog.Dialog.Prompt("Password", "Inconsistent face detected, please input your password", inputType: PromptDialog.Dialog.InputType.Password);
                     running = true;
                         Console.WriteLine(password);
-                        if (!password.Equals(true_pass))
+                        if (password==null||!password.Equals(true_pass))
                         {
                             LockWorkStation();
                         }
